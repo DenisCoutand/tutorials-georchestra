@@ -1,6 +1,6 @@
 # Tuto : georchestra avec docker
 
-Comme je suis franchouillard, je m'exprime en français. Ceci est un tuto modeste qui explique le déploiement de **geOrchestra** avec Docker sur serveur Linux.
+Comme je suis "franchouillard", je m'exprime en français. Ceci est un tuto modeste qui explique le déploiement de **geOrchestra** avec Docker sur serveur Linux.
 
 ## Etape 1:
 ```bash
@@ -50,3 +50,14 @@ certificatesResolvers:
 
 ping: {}
 ```
+## Etape 3:
+update traefik config dans le docker-compose.override.yml
+Dans docker-compose.override.yml,
+- commentons le bloc 'traefik-me-certificate-downloader' 
+- 'georchestra-127-0-0-1.traefiq.me' service:
+- commenter 'depends_on' section
+- changer la section volume:
+    - /var/run/docker.sock:/var/run/docker.sock:ro
+    - ./resources/traefik_custom.yml:/etc/traefik/traefik.yml:ro
+    - acme:/acme
+changer FQDN et labels
